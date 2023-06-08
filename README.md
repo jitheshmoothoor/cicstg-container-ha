@@ -1,19 +1,21 @@
-Introduction
-CICS TG load balancing is of utmost importance in preserving system availability through the equitable distribution of transaction workload among various components. Specifically, TCP/IP load balancing focuses on guaranteeing the high availability of the CICS transaction Gateway daemon. This is accomplished by effectively distributing client connections across multiple Gateway daemons.
+**Introduction**
+    CICS TG load balancing is of utmost importance in preserving system availability through the equitable distribution of transaction workload among various components. Specifically, TCP/IP load balancing focuses on guaranteeing the high availability of the CICS transaction Gateway daemon. This is accomplished by effectively distributing client connections across multiple Gateway daemons.
 In this project, we will illustrate the steps to configure multiple CICS TG containers with high availability. Additionally, we will utilise an ‘NGINX’ container for load balancing of TCP/IP requests originating from the CICS TG client application, which will be routed to both CICS TG and subsequently to CICS TS.
 
 CA1T offers sample exits that facilitate the rapid and efficient setup of a high availability infrastructure between CICS TG and CICS. These exits are designed to work with rules defined in a simple, text-based configuration file. The CA1T configuration file acts as a central repository where administrators can define and customize various rules related to high availability.
-Prerequisites
+
+**Prerequisites**
 Listed below are the prerequisites.
 •	CICS Transaction Gateway 9.3 container image
 •	Get the CICS TG client.jar (ctgclient.jar) and samples jar(ctgsamples.jar) file from CICSTG SDK. Download the CICS TG SDK here. 
 •	Supported Docker version 23.0.5
 Configuration
 
-1.Configuration for the CICS TG Client Application
-The provided Dockerfile, which is located in the javaApp directory, contains the necessary configuration for building the CICS TG client Application files, enabling the execution of the sample application. 
-In the Dockerfile, the image is constructed using the openjdk:8 parent image sourced from Docker Hub. Subsequently, the required CICS TG files essential for running the sample application are copied. The working directory is then set, and a Docker entry point is specified for the container upon start up.
+**1.Configuration for the CICS TG Client Application**
+    The provided Dockerfile, which is located in the javaApp directory, contains the necessary configuration for building the CICS TG client Application files, enabling the execution of the sample application. 
+    In the Dockerfile, the image is constructed using the openjdk:8 parent image sourced from Docker Hub. Subsequently, the required CICS TG files essential for running the sample application are copied. The working directory is then set, and a Docker entry point is specified for the container upon start up.
 To build the container successfully, ensure that you have downloaded the CICS TG client library (ctgclient.jar) and the sample jar from the CICS TG SDK. Place these files in the current directory before proceeding with the container build process. The Dockerfile will then copy the necessary files from the current directory into the container for executing the sample application. Dockerfile for the CICS TG client container 
+
 FROM openjdk:8
 ADD ctgclient.jar /opt/ctgclient.jar
 ADD ctgsamples.jar /opt/ctgsamples.jar
@@ -24,8 +26,9 @@ To build the Docker image from the Dockerfile, follow these steps:
 Use the docker build command to build the image. Provide a name for the image using the -t flag followed by the desired image name. The period .  at the end indicates that the build context is the current directory.
 docker build -t openjdk-tg.
 
-2.Configuration for the ngnix container
-NGINX is an open-source web server software commonly used for reverse proxy, load balancing, and caching purposes. The provided Dockerfile contains the necessary configuration to build a Docker image based on the NGINX base image. It includes an ‘NGINX’ configuration file that allows you to define how NGINX handles requests for server resources. 
+**2.Configuration for the ngnix container**
+
+    NGINX is an open-source web server software commonly used for reverse proxy, load balancing, and caching purposes. The provided Dockerfile contains the necessary configuration to build a Docker image based on the NGINX base image. It includes an ‘NGINX’ configuration file that allows you to define how NGINX handles requests for server resources. 
 To build the nginx Docker image from the Dockerfile, follow these steps:
 docker build -t nginx.
 Building the Docker image from the provided Dockerfile will create a containerized NGINX instance with the specified configuration, allowing you to deploy and utilize it for load balancing purposes between two CICS TG containers. The load balancing algorithm used in this configuration is a round robin one, meaning that incoming requests will be evenly distributed in a sequential order to each CICS TG container on a rotation basis.
