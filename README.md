@@ -138,9 +138,11 @@ To access the CICS TG client application container, you can use the container ID
 This command will redirect inside the container to the /opt directory where all the volume mapped files from the host files system are present. 
 
 Add the ctgclient and the ctgsamples.jar to the CLASSPATH.
+
 	export CLASSPATH=$CLASSPATH:$PWD/ctgclient.jar:$PWD/ctgsamples.jar
 
 Running the sample:
+
 	java com.ibm.ctg.samples.eci.EciB2 jgate=nginx-route jgateport=2007 server=CICSSRV1 prog0=EC01 COMMAREAlength=18
 
 To run the ECI application, we are utilizing the NGINX container with the jgate parameter 'jgate=nginx-route'. The round robin algorithm implemented in NGINX will be employed to route requests from 'nginx-route' to either 'cicstgcontainer1' or 'cicstgcontainer2'. 
@@ -158,7 +160,8 @@ The location of the ca1t.jar has been included in the CLASSPATH configuration fo
 
 	export CLASSPATH=/opt/ibm/cicstg/classes/ca1t.jar
 
-Specify the location of your HA configuration file for the Gateway by using the variable CTG_HACONFIG. This variable is defined in the ‘ctgd.conf’ file of your setups.     
+Specify the location of your HA configuration file for the Gateway by using the variable CTG_HACONFIG. This variable is defined in the ‘ctgd.conf’ file of your setups.
+
 export CTG_HACONFIG="/var/cicscli/ca1t.ini"
 
 To Ensure that the gateway has the read access for the ca1t configuration file, change the permission of the file in the cicstg1 and cicstg2 directory. 
@@ -173,7 +176,7 @@ To enable the use of a log file for the ca1t configurations, add the CTGD_PARAM 
 
 	CTGD_PARAMS="-j-Xmx2048M -j-Xms2048M -j-Dcom.ibm.ctg.ca1t.haexit.out=/var/cicscli/ca1t.out -j-Dcom.ibm.ctg.ca1t.haexit.ca1t=3"
 
-For more details on configuring refer the page.
+For more details on configuring refer the page : https://www.ibm.com/docs/en/cics-tg-multi/9.3?topic=availability-windows-workload-manager
 
 **How to run the Sample with CA1T configuration **
 
