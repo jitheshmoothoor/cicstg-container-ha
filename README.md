@@ -4,7 +4,8 @@ CICS TG load balancing is of utmost importance in preserving system availability
 In this project, we will illustrate the steps to configure multiple CICS TG containers with high availability. Additionally, we will utilise an ‘NGINX’ container for load balancing of TCP/IP requests originating from the CICS TG client application, which will be routed to both CICS TG and subsequently to CICS TS.
 
 
-<img width="966" alt="image" src="https://github.com/jitheshmoothoor/cicstg-container-ha/assets/135625223/d97173dc-b2d4-42b0-afd2-a502b9941a0c">
+![image](https://github.com/jitheshmoothoor/cicstg-container-ha/assets/135625223/cbdf7afa-962d-479b-98c6-b6a7f932890c)
+
 
 
 
