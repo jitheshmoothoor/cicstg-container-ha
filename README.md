@@ -38,13 +38,16 @@ To build the container successfully, ensure that you have downloaded the CICS TG
 
 To build the Docker image from the Dockerfile, follow these steps:
 Use the docker build command to build the image. Provide a name for the image using the -t flag followed by the desired image name. The period .  at the end indicates that the build context is the current directory.
-docker build -t openjdk-tg.
+
+	docker build -t openjdk-tg .
 
 **2.Configuration for the ngnix container**
 
 NGINX is an open-source web server software commonly used for reverse proxy, load balancing, and caching purposes. The provided Dockerfile contains the necessary configuration to build a Docker image based on the NGINX base image. It includes an ‘NGINX’ configuration file that allows you to define how NGINX handles requests for server resources. 
 To build the nginx Docker image from the Dockerfile, follow these steps:
-docker build -t nginx.
+
+	docker build -t nginx .
+
     Building the Docker image from the provided Dockerfile will create a containerized NGINX instance with the specified configuration, allowing you to deploy and utilize it for load balancing purposes between two CICS TG containers. The load balancing algorithm used in this configuration is a round robin one, meaning that incoming requests will be evenly distributed in a sequential order to each CICS TG container on a rotation basis.
 Once the Docker image is built and the container is deployed, NGINX will serve as a load balancer, forwarding incoming requests to the CICS TG containers using the round robin algorithm. This setup helps distribute the workload effectively and ensures better resource utilization across the CICS TG containers.
     The provided NGINX configuration demonstrates how to configure NGINX as a TCP load balancer using the Round Robin algorithm. The stream context is used to define the TCP load balancing configuration.
