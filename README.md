@@ -3,7 +3,10 @@
 CICS TG load balancing is of utmost importance in preserving system availability through the equitable distribution of transaction workload among various components. Specifically, TCP/IP load balancing focuses on guaranteeing the high availability of the CICS transaction Gateway daemon. This is accomplished by effectively distributing client connections across multiple Gateway daemons.
 In this project, we will illustrate the steps to configure multiple CICS TG containers with high availability. Additionally, we will utilise an ‘NGINX’ container for load balancing of TCP/IP requests originating from the CICS TG client application, which will be routed to both CICS TG and subsequently to CICS TS.
 
-<img width="415" alt="image" src="https://github.com/jitheshmoothoor/cicstg-container-ha/assets/135625223/73c68e86-6dd0-4e76-80fe-5f8a0b7cd715">
+
+<img width="966" alt="image" src="https://github.com/jitheshmoothoor/cicstg-container-ha/assets/135625223/d97173dc-b2d4-42b0-afd2-a502b9941a0c">
+
+
 
 CA1T offers sample exits that facilitate the rapid and efficient setup of a high availability infrastructure between CICS TG and CICS. These exits are designed to work with rules defined in a simple, text-based configuration file. The CA1T configuration file acts as a central repository where administrators can define and customize various rules related to high availability.
 
