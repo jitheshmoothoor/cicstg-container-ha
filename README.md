@@ -10,10 +10,15 @@ CA1T offers sample exits that facilitate the rapid and efficient setup of a high
 **Prerequisites**
 
 Listed below are the prerequisites.
-•	CICS Transaction Gateway 9.3 container image
-•	Get the CICS TG client.jar (ctgclient.jar) and samples jar(ctgsamples.jar) file from CICSTG SDK. Download the CICS TG SDK here. 
-•	Supported Docker version 23.0.5
-Configuration
+
+• CICS Transaction Gateway 9.3 container image
+
+• Get the CICS TG client.jar (ctgclient.jar) and samples jar(ctgsamples.jar) file from CICSTG SDK. Download the CICS TG SDK here. 
+
+• Supported Docker version 23.0.5
+
+
+****Configuration****
 
 **1.Configuration for the CICS TG Client Application**
 
@@ -21,11 +26,11 @@ The provided Dockerfile, which is located in the javaApp directory, contains the
 In the Dockerfile, the image is constructed using the openjdk:8 parent image sourced from Docker Hub. Subsequently, the required CICS TG files essential for running the sample application are copied. The working directory is then set, and a Docker entry point is specified for the container upon start up.
 To build the container successfully, ensure that you have downloaded the CICS TG client library (ctgclient.jar) and the sample jar from the CICS TG SDK. Place these files in the current directory before proceeding with the container build process. The Dockerfile will then copy the necessary files from the current directory into the container for executing the sample application. Dockerfile for the CICS TG client container 
 
-FROM openjdk:8
-ADD ctgclient.jar /opt/ctgclient.jar
-ADD ctgsamples.jar /opt/ctgsamples.jar
-WORKDIR /opt/
-CMD [/bin/bash]
+	FROM openjdk:8
+	ADD ctgclient.jar /opt/ctgclient.jar
+	ADD ctgsamples.jar /opt/ctgsamples.jar
+	WORKDIR /opt/
+	CMD [/bin/bash]
 
 To build the Docker image from the Dockerfile, follow these steps:
 Use the docker build command to build the image. Provide a name for the image using the -t flag followed by the desired image name. The period .  at the end indicates that the build context is the current directory.
