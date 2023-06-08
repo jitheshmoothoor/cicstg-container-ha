@@ -71,13 +71,18 @@ With this configuration, NGINX will listen on port 2007 and forward incoming TCP
 
 **3.	Configuration for the CICS TG container**
 
-Download the CICS Transaction Gateway image from IBM Passport Advantage based on the part number ‘n’ to a temporary directory, where ‘n’ is the part number listed in Tables.
+Download the CICS Transaction Gateway image from IBM Passport Advantage (https://www.ibm.com/software/passportadvantage/) based on the part number ‘n’ to a temporary directory, where ‘n’ is the part number listed in Tables (https://www.ibm.com/docs/en/cics-tg-multi/9.3?topic=installing-download-cics-transaction-gateway-images).
 After downloading the CICS TG container image, load the image on docker.
+
 The IBM® CICS TG container available in tar.gz format is loaded through docker load command.
-docker load -i ibm-cicstg-container-linux-x86.tar.gz
+
+	docker load -i ibm-cicstg-container-linux-x86.tar.gz
+
 Upon successful completion of docker load, use the docker images command to view the image.
-docker images
-Download the ‘cicstg1’ and ‘cicstg2’ directories and place them in your current directory. The configuration files, such as ‘ctg.ini’ and ‘ctgd.conf’, will be utilized to initiate the gateway upon container startup. Two sample CICS servers (CICSSRV1 and CICSSRV2) are provided with the configuration file ‘ctg.ini’.
+
+	docker images
+
+Download the ‘cicstg1’ and ‘cicstg2’ directories and place them in your current directory. The configuration files, such as ‘ctg.ini’ and ‘ctgd.conf’,ca1t.ini will be utilized to initiate the gateway upon container startup. Two sample CICS servers (CICSSRV1 and CICSSRV2) are provided with the configuration file ‘ctg.ini’. you should edit the CICS server details in 'SECTION IPICSERVER = CICSSRV1' and 'SECTION IPICSERVER = CICSSRV2' of the ctg.ini before starting the container.
 
 **4.	Setup the docker compose file for multiple containers**
 
@@ -153,8 +158,8 @@ Add the ctgclient and the ctgsamples.jar to the CLASSPATH.
 
 	export CLASSPATH=$CLASSPATH:$PWD/ctgclient.jar:$PWD/ctgsamples.jar
 
-Running the sample:
-
+Running the sample,  the  ECiB2 sample applicaiton is available in ctgsamples.jar file
+       	
 	java com.ibm.ctg.samples.eci.EciB2 jgate=nginx-route jgateport=2007 server=CICSSRV1 prog0=EC01 COMMAREAlength=18
 
 To run the ECI application, we are utilizing the NGINX container with the jgate parameter 'jgate=nginx-route'. The round robin algorithm implemented in NGINX will be employed to route requests from 'nginx-route' to either 'cicstgcontainer1' or 'cicstgcontainer2'. 
@@ -193,13 +198,15 @@ For more details on configuring refer the page : https://www.ibm.com/docs/en/cic
 **How to run the Sample with CA1T configuration **
 
 To access the CICS TG client application container, you can use the container ID that is generated when the container starts.
-docker exec -it container_id /bin/bash.  
+
+	docker exec -it container_id /bin/bash.  
+	
 This command will redirect inside the container to the /opt directory where all the volume mapped files from the host files system are present. 
 Add the ctgclient and the ctgsamples.jar to the CLASSPATH.
 
 	export CLASSPATH=$CLASSPATH:$PWD/ctgclient.jar:$PWD/ctgsamples.jar
 
-Running the sample:-
+Running the sample , the  ECiB2 sample applicaiton is available in ctgsamples.jar file
 
 	java com.ibm.ctg.samples.eci.EciB2 jgate=nginx-route jgateport=2007 server= SERVER1 prog0=EC01 COMMAREAlength=18
 
