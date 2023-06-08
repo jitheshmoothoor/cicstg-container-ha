@@ -1,0 +1,44 @@
+version : '3.3'
+services: 
+  cicstg1:
+        image: localhost/ibm-cicstg-container-linux-x86:9.3
+        container_name: cisctgcontainer1
+        privileged: true
+        restart: always
+        environment:
+          - LICENSE=accept
+        volumes:
+          - ./cicstg1:/var/cicscli
+        ports:
+          - "2009:2007"
+  cicstg2:
+        image: localhost/ibm-cicstg-container-linux-x86:9.3
+        container_name: cisctgcontainer2
+        privileged: true
+        restart: always
+        environment:
+          - LICENSE=accept
+        volumes:
+          - ./cicstg2:/var/cicscli
+        ports:
+          - "2010:2007"
+  javaApp: 
+        image: openjdk-tg:latest
+        container_name: java-TG-App
+        privileged: true
+        restart: always
+        depends_on:
+          - nginx
+        volumes:
+          - ./javappTX:/opt
+ 
+ nginx:
+        image: nginx:latest
+        container_name: nginx-route
+        privileged: true
+        restart: always
+        depends_on:
+        -  cicstg1
+        -  cicstg2
+        ports:
+        - "2007:2007"
