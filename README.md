@@ -1,6 +1,6 @@
 **Introduction**
 
-    CICS TG load balancing is of utmost importance in preserving system availability through the equitable distribution of transaction workload among various components. Specifically, TCP/IP load balancing focuses on guaranteeing the high availability of the CICS transaction Gateway daemon. This is accomplished by effectively distributing client connections across multiple Gateway daemons.
+CICS TG load balancing is of utmost importance in preserving system availability through the equitable distribution of transaction workload among various components. Specifically, TCP/IP load balancing focuses on guaranteeing the high availability of the CICS transaction Gateway daemon. This is accomplished by effectively distributing client connections across multiple Gateway daemons.
 In this project, we will illustrate the steps to configure multiple CICS TG containers with high availability. Additionally, we will utilise an ‘NGINX’ container for load balancing of TCP/IP requests originating from the CICS TG client application, which will be routed to both CICS TG and subsequently to CICS TS.
 
 
@@ -16,8 +16,8 @@ Configuration
 
 **1.Configuration for the CICS TG Client Application**
 
-    The provided Dockerfile, which is located in the javaApp directory, contains the necessary configuration for building the CICS TG client Application files, enabling the execution of the sample application. 
-    In the Dockerfile, the image is constructed using the openjdk:8 parent image sourced from Docker Hub. Subsequently, the required CICS TG files essential for running the sample application are copied. The working directory is then set, and a Docker entry point is specified for the container upon start up.
+The provided Dockerfile, which is located in the javaApp directory, contains the necessary configuration for building the CICS TG client Application files, enabling the execution of the sample application. 
+In the Dockerfile, the image is constructed using the openjdk:8 parent image sourced from Docker Hub. Subsequently, the required CICS TG files essential for running the sample application are copied. The working directory is then set, and a Docker entry point is specified for the container upon start up.
 To build the container successfully, ensure that you have downloaded the CICS TG client library (ctgclient.jar) and the sample jar from the CICS TG SDK. Place these files in the current directory before proceeding with the container build process. The Dockerfile will then copy the necessary files from the current directory into the container for executing the sample application. Dockerfile for the CICS TG client container 
 
 FROM openjdk:8
@@ -32,24 +32,25 @@ docker build -t openjdk-tg.
 
 **2.Configuration for the ngnix container**
 
-    NGINX is an open-source web server software commonly used for reverse proxy, load balancing, and caching purposes. The provided Dockerfile contains the necessary configuration to build a Docker image based on the NGINX base image. It includes an ‘NGINX’ configuration file that allows you to define how NGINX handles requests for server resources. 
+NGINX is an open-source web server software commonly used for reverse proxy, load balancing, and caching purposes. The provided Dockerfile contains the necessary configuration to build a Docker image based on the NGINX base image. It includes an ‘NGINX’ configuration file that allows you to define how NGINX handles requests for server resources. 
 To build the nginx Docker image from the Dockerfile, follow these steps:
 docker build -t nginx.
     Building the Docker image from the provided Dockerfile will create a containerized NGINX instance with the specified configuration, allowing you to deploy and utilize it for load balancing purposes between two CICS TG containers. The load balancing algorithm used in this configuration is a round robin one, meaning that incoming requests will be evenly distributed in a sequential order to each CICS TG container on a rotation basis.
 Once the Docker image is built and the container is deployed, NGINX will serve as a load balancer, forwarding incoming requests to the CICS TG containers using the round robin algorithm. This setup helps distribute the workload effectively and ensures better resource utilization across the CICS TG containers.
     The provided NGINX configuration demonstrates how to configure NGINX as a TCP load balancer using the Round Robin algorithm. The stream context is used to define the TCP load balancing configuration.
-stream {
-    upstream tcp_backend {
-        zone tcp_backend 64k;
-        server cicstg1:2007 weight=5;
-        server cicstg2:2007 weight=5;
-    }
-    server {
-        listen 2007;
-        proxy_pass tcp_backend;
-    }
+    
+    stream {
+         upstream tcp_backend {
+            zone tcp_backend 64k;
+           server cicstg1:2007 weight=5;
+           server cicstg2:2007 weight=5;
+          }
+             server {
+                  listen 2007;
+                 proxy_pass tcp_backend;
+             }
                 
-}
+         }
 
 Within the stream context, an upstream block named tcp_backend is defined. This block specifies the servers that NGINX will load balance traffic to. In this case, cicstg1:2007 and cicstg2:2007 are specified as the servers with a weight of 5 each. The weight determines the proportion of traffic that each server receives in comparison to others.
 The server block within the stream context specifies the listening port, in this case, port 2007. The proxy_pass directive is used to pass the incoming TCP traffic to the tcp_backend upstream group, which will handle the load balancing and distribute the traffic to the configured servers using the Round Robin algorithm.
