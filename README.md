@@ -69,48 +69,49 @@ Download the ‘cicstg1’ and ‘cicstg2’ directories and place them in your 
 **4.	Setup the docker compose file for multiple containers**
 
 Download the content of the ‘docker-compose.yaml’ file that can be used to start CICS TG and nginx multiple containers.
-version: '3.3'
-services: 
-  cicstg1:
-        image: localhost/ibm-cicstg-container-linux-x86:9.3
-        container_name: cisctgcontainer1
-        privileged: true
-        restart: always
-        environment:
-          - LICENSE=accept
-        volumes:
-          - ./cicstg1:/var/cicscli
-        ports:
-          - "2009:2007"
-  cicstg2:
-        image: localhost/ibm-cicstg-container-linux-x86:9.3
-        container_name: cisctgcontainer2
-        privileged: true
-        restart: always
-        environment:
-          - LICENSE=accept
-        volumes:
-          - ./cicstg2:/var/cicscli
-        ports:
-          - "2010:2007"
-  javaApp: 
-        image: openjdk-tg:latest
-        container_name: java-TG-App
-        privileged: true
-        restart: always
-        depends_on:
-          - nginx
+
+	version: '3.3'
+	services: 
+ 	 cicstg1:
+    	   image: localhost/ibm-cicstg-container-linux-x86:9.3
+    	   container_name: cisctgcontainer1
+      	   privileged: true
+       	   restart: always
+           environment:
+             - LICENSE=accept
+           volumes:
+             - ./cicstg1:/var/cicscli
+           ports:
+             - "2009:2007"
+     cicstg2:
+           image: localhost/ibm-cicstg-container-linux-x86:9.3
+           container_name: cisctgcontainer2
+           privileged: true
+           restart: always
+           environment:
+             - LICENSE=accept
+           volumes:
+             - ./cicstg2:/var/cicscli
+           ports:
+             - "2010:2007"
+     javaApp: 
+      	  image: openjdk-tg:latest
+          container_name: java-TG-App
+          privileged: true
+          restart: always
+          depends_on:
+             - nginx
  
- nginx:
-        image: nginx:latest
-        container_name: nginx-route
-        privileged: true
-        restart: always
-        depends_on:
-        -  cicstg1
-        -  cicstg2
-        ports:
-        - "2007:2007"
+     nginx:
+          image: nginx:latest
+          container_name: nginx-route
+          privileged: true
+          restart: always
+          depends_on:
+             -  cicstg1
+             -  cicstg2
+          ports:
+             - "2007:2007"
 
 The provided Docker Compose file defines our multi-container application.
 The version of the Docker Compose file used is 3.3, which is supported for specific Docker releases.
