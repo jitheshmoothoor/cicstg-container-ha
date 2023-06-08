@@ -188,6 +188,7 @@ Add the ctgclient and the ctgsamples.jar to the CLASSPATH.
 	export CLASSPATH=$CLASSPATH:$PWD/ctgclient.jar:$PWD/ctgsamples.jar
 
 Running the sample:-
+
 	java com.ibm.ctg.samples.eci.EciB2 jgate=nginx-route jgateport=2007 server= SERVER1 prog0=EC01 COMMAREAlength=18
 
 To run the ECI application, we are utilizing the NGINX container with the jgate parameter 'jgate=nginx-route'. The Round Robin algorithm implemented in NGINX will be employed to route requests from 'nginx-route' to either 'cicstgcontainer1' or 'cicstgcontainer2'.  The server parameter will be used with SERVER1, and the request will be routed in a round-robin manner to either CICSSRV1 or CICSSRV2, which are CICS Servers.
