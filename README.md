@@ -48,7 +48,7 @@ To build the nginx Docker image from the Dockerfile, follow these steps:
 
 	docker build -t nginx .
 
-    Building the Docker image from the provided Dockerfile will create a containerized NGINX instance with the specified configuration, allowing you to deploy and utilize it for load balancing purposes between two CICS TG containers. The load balancing algorithm used in this configuration is a round robin one, meaning that incoming requests will be evenly distributed in a sequential order to each CICS TG container on a rotation basis.
+Building the Docker image from the provided Dockerfile will create a containerized NGINX instance with the specified configuration, allowing you to deploy and utilize it for load balancing purposes between two CICS TG containers. The load balancing algorithm used in this configuration is a round robin one, meaning that incoming requests will be evenly distributed in a sequential order to each CICS TG container on a rotation basis.
 Once the Docker image is built and the container is deployed, NGINX will serve as a load balancer, forwarding incoming requests to the CICS TG containers using the round robin algorithm. This setup helps distribute the workload effectively and ensures better resource utilization across the CICS TG containers.
     The provided NGINX configuration demonstrates how to configure NGINX as a TCP load balancer using the Round Robin algorithm. The stream context is used to define the TCP load balancing configuration.
     
