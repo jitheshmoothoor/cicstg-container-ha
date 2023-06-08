@@ -17,7 +17,7 @@ Listed below are the prerequisites.
 
 • CICS Transaction Gateway 9.3 container image
 
-• Get the CICS TG client.jar (ctgclient.jar) and samples jar(ctgsamples.jar) file from CICSTG SDK. Download the CICS TG SDK here. 
+• Get the CICS TG client.jar (ctgclient.jar) and samples jar(ctgsamples.jar) file from CICSTG SDK. Download the CICS TG SDK here : https://www.ibm.com/support/pages/cics-transaction-gateway-cics-tg-sdk-downloads
 
 • Supported Docker version 23.0.5
 
