@@ -96,47 +96,46 @@ Download the content of the `docker-compose.yaml` file that can be used to start
 
 	version: '3.3'
 	services: 
- 	 cicstg1:
-    	   image: localhost/ibm-cicstg-container-linux-x86:9.3
-    	   container_name: cisctgcontainer1
-      	   privileged: true
-       	   restart: always
-           environment:
-             - LICENSE=accept
-           volumes:
-             - ./cicstg1:/var/cicscli
-           ports:
-             - "2009:2007"
-     cicstg2:
-           image: localhost/ibm-cicstg-container-linux-x86:9.3
-           container_name: cisctgcontainer2
-           privileged: true
-           restart: always
-           environment:
-             - LICENSE=accept
-           volumes:
-             - ./cicstg2:/var/cicscli
-           ports:
-             - "2010:2007"
-     javaApp: 
+      cicstg1:
+          image: localhost/ibm-cicstg-container-linux-x86:9.3
+          container_name: cisctgcontainer1
+      	  privileged: true
+       	  restart: always
+          environment:
+            - LICENSE=accept
+          volumes:
+            - ./cicstg1:/var/cicscli
+          ports:
+            - "2009:2007"
+      cicstg2:
+          image: localhost/ibm-cicstg-container-linux-x86:9.3
+          container_name: cisctgcontainer2
+          privileged: true
+          restart: always
+          environment:
+            - LICENSE=accept
+          volumes:
+            - ./cicstg2:/var/cicscli
+          ports:
+            - "2010:2007"
+      javaApp: 
       	  image: openjdk-tg:latest
           container_name: java-TG-App
           tty: true
           privileged: true
           restart: always
           depends_on:
-             - nginx
- 
-     nginx:
+            - nginx
+      nginx:
           image: nginx:latest
           container_name: nginx-route
           privileged: true
           restart: always
           depends_on:
-             -  cicstg1
-             -  cicstg2
+            -  cicstg1
+            -  cicstg2
           ports:
-             - "2007:2007"
+            - "2007:2007"
 
 The provided Docker Compose file defines our multi-container application.
 
@@ -214,7 +213,7 @@ To enable the use of a log file for the ca1t configurations, add the CTGD_PARAM 
 
 For more details on configuring refer the page : https://www.ibm.com/docs/en/cics-tg-multi/9.3?topic=availability-windows-workload-manager
 
-**How to run the Sample with CA1T configuration **
+**How to run the Sample with CA1T Configuration**
 
 To access the CICS TG client application container, you can use the container ID that is generated when the container starts.
 
