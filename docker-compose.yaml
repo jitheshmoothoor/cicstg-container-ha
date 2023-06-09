@@ -23,16 +23,14 @@ services:
         ports:
           - "2010:2007"
   javaApp: 
-        image: openjdk-tg:latest
+        image: openjdktg:latest
         container_name: java-TG-App
+        tty: true
         privileged: true
         restart: always
         depends_on:
           - nginx
-        volumes:
-          - ./javappTX:/opt
- 
- nginx:
+  nginx:
         image: nginx:latest
         container_name: nginx-route
         privileged: true
