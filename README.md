@@ -170,7 +170,7 @@ Use the Workload Manager (CA1T) to dynamically select servers and effectively ba
 To ensure that the ca1t.ini configuration is used by the gateway daemon configuration file, use the ca1t.ini sample file and place it in the cicstg1 and cicstg2 directories. These directories should be mounted when the container starts.
 To define custom server rules for remapping and retrying failed requests based on workload balancing policies, configure the sample HA configuration file. In this case, we will use the round robin policy, which distributes requests in a round-robin manner, ensuring an even distribution across the servers.
 
-For more information about creating HA configuration files, see High Availability(HA) and Request validation configuration.
+For more information about creating HA configuration files, see High Availability(HA) and Request validation configuration : https://www.ibm.com/docs/en/cics-tg-multi/9.3?topic=availability-windows-workload-manager
 
 In our HA configuration file, SERVER1 is set to CICSSRV1 and CICSSRV2.
 The location of the ca1t.jar has been included in the CLASSPATH configuration for CA1T with Gateway. This jar can be found at /opt/ibm/cicstg/classes/ca1t.jar. The ‘ctgd.conf’ file in cicstg1 and cicstg2 has been updated to add the CLASSPATH entry for ca1t.jar.
