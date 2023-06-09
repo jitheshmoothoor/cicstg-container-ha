@@ -23,7 +23,7 @@ services:
         ports:
           - "2010:2007"
   javaApp: 
-        image: openjdktg:latest
+        image: openjdk-tg:latest
         container_name: java-TG-App
         tty: true
         privileged: true
