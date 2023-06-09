@@ -29,10 +29,7 @@ services:
         restart: always
         depends_on:
           - nginx
-        volumes:
-          - ./javappTX:/opt
- 
- nginx:
+  nginx:
         image: nginx:latest
         container_name: nginx-route
         privileged: true
